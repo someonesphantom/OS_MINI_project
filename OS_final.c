@@ -74,6 +74,8 @@ void play()
 			break;
 		case 5: strcpy(file_name,"sol5");
 			break;
+		default: printf("ERROR, Number input is more than 5");
+			 exit(0);
 	}
 	getsudoku();
 	zeo(numd);

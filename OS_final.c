@@ -56,50 +56,50 @@ void zeo(int i)
 void play()
 {
 	int numc,numd=0;
-		char file_name2[100];
-		strcpy(file_name2,file_name);
-			printf("Enter:\n1.Easy\n2.Medium\n3.Hard");
-		    scanf("%d",&numd);	
-		printf("Enter a Number from 1- 5");
-		    scanf("%d",&numc);
-		    numc--;
-		if(numc==0)
+	char file_name2[100];
+	strcpy(file_name2,file_name);
+	printf("Enter:\n1.Easy\n2.Medium\n3.Hard");
+	scanf("%d",&numd);	
+	printf("Enter a Number from 1- 5");
+	scanf("%d",&numc);
+	numc--;
+	if(numc==0)
+	{
+		strcpy(file_name,"sol1");
+	}
+	else if(numc==1)
+	{
+		strcpy(file_name,"sol2");
+	}
+	else if(numc==2)
+	{
+		strcpy(file_name,"sol3");
+	}
+	else if(numc==3)
+	{
+		strcpy(file_name,"sol4");
+	}
+	else 
+	{
+		strcpy(file_name,"sol5");
+	}
+	getsudoku();
+	zeo(numd);
+	printsudo();
+	printf("Enter your choice, where it's 0\n");
+	for(int i = 0;i < 9; i++)
+	{
+		for(int j = 0;j < 9; j++)
 		{
-			strcpy(file_name,"sol1");
-		}
-		else if(numc==1)
-		{
-			strcpy(file_name,"sol2");
-		}
-		else if(numc==2)
-		{
-			strcpy(file_name,"sol3");
-		}
-		else if(numc==3)
-		{
-			strcpy(file_name,"sol4");
-		}
-		else 
-		{
-			strcpy(file_name,"sol5");
-		}
-		getsudoku();
-		zeo(numd);
-		printsudo();
-	    printf("Enter your choice, where it's 0\n");
-		for(int i = 0;i < 9; i++)
-		{
-			for(int j = 0;j < 9; j++)
+			if(sudoku[i][j] == 0)
 			{
-				if(sudoku[i][j] == 0)
-				{
-					printf("Enter for [%d][%d]:\n",i+1,j+1);
-					scanf("%d",&sudoku[i][j]);
-				}
+				printf("Enter for [%d][%d]:\n",i+1,j+1);
+				scanf("%d",&sudoku[i][j]);
 			}
 		}
-		strcpy(file_name,file_name2);
-		inst();
+	}
+	strcpy(file_name,file_name2);
+	inst();
 
 }
 void inst()
@@ -116,16 +116,16 @@ void inst()
 		exit(0);
 	}
 	for(int i=0;i<9;i++)
+	{
+		for(int j=0;j<9;j++)
 		{
-			for(int j=0;j<9;j++)
-			{
-				num=sudoku[i][j];
-				putw(num, fptr);
-			}
+			num=sudoku[i][j];
+			putw(num, fptr);
 		}
-		fclose(fptr);
 	}
-	
+	fclose(fptr);
+}
+
 void ins() {
 	FILE *fptr;
   // integer variable

@@ -22,6 +22,7 @@ void ins();
 void getsudoku();
 void play();
 void inst();
+void zeo(int);
 void printsudo()
 {
 	for(int i=0;i<9;i++)
@@ -33,13 +34,57 @@ void printsudo()
 		printf("\n");
 	}
 }
+void zeo(int i)
+{
+	i=i*3;
+	int x,y;
+	while(i!=0)
+	{
+		x=rand()%9;
+		y=rand()%9;
+		if(sudoku[x][y]==0)
+		{
+			continue;
+		}
+		else
+		{
+			sudoku[x][y]=0;
+			i--;
+		}
+	}
+}
 void play()
 {
-		int num = 0, a1 = 0, num1;
+	int numc,numd=0;
 		char file_name2[100];
 		strcpy(file_name2,file_name);
-		strcpy(file_name,"play_sudoku");
+			printf("Enter:\n1.Easy\n2.Medium\n3.Hard");
+		    scanf("%d",&numd);	
+		printf("Enter a Number from 1- 5");
+		    scanf("%d",&numc);
+		    numc--;
+		if(numc==0)
+		{
+			strcpy(file_name,"sol1");
+		}
+		else if(numc==1)
+		{
+			strcpy(file_name,"sol2");
+		}
+		else if(numc==2)
+		{
+			strcpy(file_name,"sol3");
+		}
+		else if(numc==3)
+		{
+			strcpy(file_name,"sol4");
+		}
+		else 
+		{
+			strcpy(file_name,"sol5");
+		}
 		getsudoku();
+		zeo(numd);
 		printsudo();
 	    printf("Enter your choice, where it's 0\n");
 		for(int i = 0;i < 9; i++)
@@ -115,8 +160,7 @@ void ins() {
 				putw(num, fptr);
 			}
 		}
-	}
-	if(inp==2)
+	}else if(inp==2)
 	{
 		for(int i=0;i<9;i++)
 		{
@@ -129,22 +173,7 @@ void ins() {
 
 	}
 	else
-	{
-		for(int i=0;i<9;i++)
-		{
-			for(int j=0;j<9;j++)
-			{
-				printf("Row:%d,Col:%d::\n",i+1,j+1);
-				scanf("%d", &num);
-				if(num>10)
-				{
-					printf("Invalid Inputs.......Exiting Program");
-					exit(0);
-				}
-				putw(num, fptr);
-			}
-		}
-	}
+		printf("Invalid selection");
 	fclose(fptr);
 }
 void getsudoku()

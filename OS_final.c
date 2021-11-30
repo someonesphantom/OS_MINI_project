@@ -62,26 +62,18 @@ void play()
 	scanf("%d",&numd);	
 	printf("Enter a Number from 1- 5");
 	scanf("%d",&numc);
-	numc--;
-	if(numc==0)
+	switch(numc)
 	{
-		strcpy(file_name,"sol1");
-	}
-	else if(numc==1)
-	{
-		strcpy(file_name,"sol2");
-	}
-	else if(numc==2)
-	{
-		strcpy(file_name,"sol3");
-	}
-	else if(numc==3)
-	{
-		strcpy(file_name,"sol4");
-	}
-	else 
-	{
-		strcpy(file_name,"sol5");
+		case 1: strcpy(file_name,"sol1");
+			break;
+		case 2: strcpy(file_name,"sol2");
+			break;
+		case 3: strcpy(file_name,"sol3");
+			break;
+		case 4: strcpy(file_name,"sol4");
+			break;
+		case 5: strcpy(file_name,"sol5");
+			break;
 	}
 	getsudoku();
 	zeo(numd);

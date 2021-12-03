@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <string.h>
+#include <bsd/stdlib.h>
 #define num_threads 27
 /* 
 	Initialize the array which worker threads can update to 1 if the 

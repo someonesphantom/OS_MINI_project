@@ -2,10 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <math.h>
-#include <time.h>
+#include <string.h>
 #define num_threads 27
-
 /* 
 	Initialize the array which worker threads can update to 1 if the 
 	corresponding region of the sudoku puzzle they were responsible 
@@ -18,11 +16,16 @@ typedef struct {
 	int row;
 	int column;		
 } parameters;
-
-void fillDiagonal();
+int sudoku[9][9];
+char file_name[100];
+void ins();
 void getsudoku();
+void play();
+void inst();
+void fillDiagonal();
+void randomgen(int k);
 void fillValues();
-void removeKDigits();
+void removeKDigits(int k);
 void fillBox(int row,int col);
 int fillRemaining(int i, int j);
 int unUsedInBox(int rowStart, int colStart, int num);
@@ -33,15 +36,14 @@ int CheckIfSafe(int i,int j,int num);
 
 
 int sudoku[9][9];
-int N =9,K=4;
+int N =9;
 int SRN = 3;
 
-void getsudoku(){
+void randomgen(int k){
 
-	int k;
 	fillDiagonal(9,SRN);
 	fillRemaining(0, SRN);
-	removeKDigits();
+	removeKDigits(k);
 
 	
 }
@@ -137,9 +139,9 @@ int fillRemaining(int i, int j){
         return 0;
 }
 
-void removeKDigits(){
+void removeKDigits(int k){
 		
-        int count = K;
+        int count = k*3;
         while (count != 0){
             int cellId = randomGenerator(N*N)-1;
 
@@ -158,29 +160,154 @@ void removeKDigits(){
     	}
 }
 
-void printSudoku()
-    {
-        for (int i = 0; i<N; i++)
-        {
-            for (int j = 0; j<N; j++)
-                printf("%d ",sudoku[i][j]);
-            printf("\n");
-        }
-        printf("\n");
-}
-// Sudoku puzzle to be solved
-// int sudoku[9][9] = {
-// 	{6, 2, 4, 5, 3, 9, 1, 8, 7},
-// 	{5, 1, 9, 7, 2, 8, 6, 3, 4},
-// 	{8, 3, 7, 6, 1, 4, 2, 9, 5},
-// 	{1, 4, 3, 8, 6, 5, 7, 2, 9},
-// 	{9, 5, 8, 2, 4, 7, 3, 6, 1},
-// 	{7, 6, 2, 3, 9, 1, 4, 5, 8},
-// 	{3, 7, 1, 9, 5, 6, 8, 4, 2},
-// 	{4, 9, 6, 1, 8, 2, 5, 7, 3},
-// 	{2, 8, 5, 4, 7, 3, 9, 1, 6}
-// };
 
+void printsudo()
+{
+	for(int i=0;i<9;i++)
+	{
+		for(int j=0;j<9;j++)
+		{
+			printf("\t %d",sudoku[i][j]);
+		}
+		printf("\n");
+	}
+}
+
+void play()
+{
+	int numc,numd=0;
+	char file_name2[100];
+	strcpy(file_name2,file_name);
+	printf("Enter:\n1.Easy\n2.Medium\n3.Hard\n");
+	scanf("%d",&numd);	
+	// printf("Enter a Number from 1- 5");
+	// scanf("%d",&numc);
+	// switch(numc)
+	// {
+	// 	case 1: strcpy(file_name,"sol1");
+	// 		break;
+	// 	case 2: strcpy(file_name,"sol2");
+	// 		break;
+	// 	case 3: strcpy(file_name,"sol3");
+	// 		break;
+	// 	case 4: strcpy(file_name,"sol4");
+	// 		break;
+	// 	case 5: strcpy(file_name,"sol5");
+	// 		break;
+	// 	default: printf("ERROR, Number input is more than 5");
+	// 		 exit(0);
+	// }
+	//getsudoku();
+	randomgen(numd);
+	//zeo(numd);
+	printsudo();
+	printf("Enter your choice, where it's 0\n");
+	for(int i = 0;i < 9; i++)
+	{
+		for(int j = 0;j < 9; j++)
+		{
+			if(sudoku[i][j] == 0)
+			{
+				printf("Enter for [%d][%d]:\n",i+1,j+1);
+				scanf("%d",&sudoku[i][j]);
+			}
+		}
+	}
+	strcpy(file_name,file_name2);
+	inst();
+
+}
+void inst()
+{
+	FILE *fptr;
+	int num;
+	fptr = fopen(file_name, "w");
+
+	if (fptr != NULL) {
+		printf("File created successfully!\n");
+	}
+	else {
+		printf("Failed to create the file.\n");
+		exit(0);
+	}
+	for(int i=0;i<9;i++)
+	{
+		for(int j=0;j<9;j++)
+		{
+			num=sudoku[i][j];
+			putw(num, fptr);
+		}
+	}
+	fclose(fptr);
+}
+
+void ins() {
+	FILE *fptr;
+  // integer variable
+	int num;
+  // open the file in write mode
+	fptr = fopen(file_name, "w");
+
+	if (fptr != NULL) {
+		printf("File created successfully!\n");
+	}
+	else {
+		printf("Failed to create the file.\n");
+    // exit status for OS that an error occurred
+		exit(0);
+	}
+	printf("Enter:\n 1.User Input\n2.Random value\n");
+	int inp;
+	scanf("%d",&inp);
+	if(inp==1)
+	{
+		for(int i=0;i<9;i++)
+		{
+			for(int j=0;j<9;j++)
+			{
+				printf("Row:%d,Col:%d::\n",i+1,j+1);
+				scanf("%d", &num);
+				if(num<1||num>10)
+				{
+					printf("Invalid Inputs.......Exiting Program");
+					exit(0);
+				}
+				putw(num, fptr);
+			}
+		}
+	}else if(inp==2)
+	{
+		randomgen(0);
+		inst();
+
+	}
+	else
+		printf("Invalid selection");
+	fclose(fptr);
+}
+void getsudoku()
+{
+	FILE *fptr;
+	int num;
+	fptr = fopen(file_name, "r");
+	int i=0;
+	int j=0;
+	//printf("Enter sudoku:\n");
+	//for(int i=0;i<9;i++)
+	//	for (int j = 0; j < 9; j++)
+	//	scanf("%d",&sudoku[i][j]);
+	while ( (num = getw(fptr)) != EOF )
+	{
+		sudoku[i][j]=num;
+		if(j==8)
+		{
+			j=0;
+			i++;
+		}
+		else
+			j++;		
+	}
+}
 // Method that determines if numbers 1-9 only appear once in a column
 void *isColumnValid(void* param) {
 	// Confirm that parameters indicate a valid col subsection
@@ -264,16 +391,11 @@ void *is3x3Valid(void* param) {
 	pthread_exit(NULL);
 }
 
-int main() {	
+int checkSudo(){
 	pthread_t threads[num_threads];
 	
 	int threadIndex = 0;	
 	int i,j;
-	clock_t t;
-    t = clock();
-	getsudoku();
-
-	printSudoku();
 	// Create 9 threads for 9 3x3 subsections, 9 threads for 9 columns and 9 threads for 9 rows.
 	// This will end up with a total of 27 threads.
 	for (i = 0; i < 9; i++) {
@@ -302,6 +424,7 @@ int main() {
 	for (i = 0; i < num_threads; i++) {
 		pthread_join(threads[i], NULL);			// Wait for all threads to finish
 	}
+	printsudo();
 
 	// If any of the entries in the valid array are 0, then the sudoku solution is invalid
 	for (i = 0; i < num_threads; i++) {
@@ -311,11 +434,32 @@ int main() {
 		}
 	}
 	printf("Sudoku solution is valid!\n");
-	t = clock() - t;
-    double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
-  
-    printf("code took %f seconds to execute \n", time_taken);
 	return EXIT_SUCCESS;
-	
 
+}
+
+int main() {	
+	// pthread_t threads[num_threads];
+	
+	// int threadIndex = 0;	
+	int i,j,inp;
+	
+		printf("Enter file_name:\n");
+		scanf("%s",file_name);
+		printf("Select the following:\n1:New\n2.Play\n 3:exit\n");
+		scanf("%d",&inp);
+	
+		if(inp==1)
+		{
+			ins();
+		}
+		if(inp==2)
+		{
+			play();
+		}
+		getsudoku();
+		checkSudo();
+
+	
+	
 }

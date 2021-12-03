@@ -64,8 +64,7 @@ void fillBox(int row,int col){
         }
 }
 int randomGenerator(int num){
-    	srand ( time(0) );
-        return (rand()%(num -1 + 1)) + 1;
+        return (arc4random()%(num -1 + 1)) + 1;
     }
  
 int unUsedInBox(int rowStart, int colStart, int num){
@@ -312,10 +311,10 @@ int main() {
 	}
 	printf("Sudoku solution is valid!\n");
 
-    t = clock() - t;
+	return EXIT_SUCCESS;
+	t = clock() - t;
     double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
   
     printf("code took %f seconds to execute \n", time_taken);
-	return EXIT_SUCCESS;
 
 }

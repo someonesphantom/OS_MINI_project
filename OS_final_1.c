@@ -423,25 +423,24 @@ int main() {
 	
 	// int threadIndex = 0;	
 	int i,j,inp;
-	do {
 		printf("Enter file_name:\n");
 		scanf("%s",file_name);
-		printf("Select the following:\n1:New\n2.Play\n3:exit\n");
+		printf("Select the following:\n1:New\n2.Play\n3:Existing file\n4:Exit!");
 		scanf("%d",&inp);
 	
 		if(inp == 1)
 		{
 			ins();
 		}
-		if(inp == 2)
+		else if(inp == 2)
 		{
 			play();
 		}
-		if (inp == 3)
+		else if (inp == 4)
 		{
 			exit(0);
 		}
 		getsudoku();
 		checkSudo();
-	} while(inp < 4);
+	return 0;
 }

@@ -310,11 +310,11 @@ int main() {
 		}
 	}
 	printf("Sudoku solution is valid!\n");
-
-	return EXIT_SUCCESS;
 	t = clock() - t;
     double time_taken = ((double)t)/CLOCKS_PER_SEC; // in seconds
   
     printf("code took %f seconds to execute \n", time_taken);
+	return EXIT_SUCCESS;
+	
 
 }

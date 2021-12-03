@@ -165,6 +165,7 @@ void removeKDigits(int k){
 
 void printsudo()
 {
+	printf("The sudoku is:\n");
 	for(int i=0;i<9;i++)
 	{
 		for(int j=0;j<9;j++)
@@ -189,7 +190,7 @@ void play()
 		{
 			if(sudoku[i][j] == 0)
 			{
-				//printf("Enter for [%d][%d]:\n",i+1,j+1);
+				printf("Enter for [%d][%d]:\n",i+1,j+1);
 				scanf("%d",&sudoku[i][j]);
 			}
 		}
@@ -241,11 +242,12 @@ void ins() {
 	scanf("%d",&inp);
 	if(inp==1)
 	{
+		printf("Enter the sudoku solution\n");
 		for(int i=0;i<9;i++)
 		{
 			for(int j=0;j<9;j++)
 			{
-				printf("Row:%d,Col:%d::\n",i+1,j+1);
+				//printf("Row:%d,Col:%d::\n",i+1,j+1);
 				scanf("%d", &num);
 				if(num<1||num>10)
 				{

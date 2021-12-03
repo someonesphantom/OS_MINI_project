@@ -17,6 +17,7 @@ typedef struct {
 	int row;
 	int column;		
 } parameters;
+
 int sudoku[9][9];
 char file_name[100];
 void ins();
@@ -177,30 +178,9 @@ void printsudo()
 void play()
 {
 	int numc,numd=0;
-	char file_name2[100];
-	strcpy(file_name2,file_name);
 	printf("Enter:\n1.Easy\n2.Medium\n3.Hard\n");
 	scanf("%d",&numd);	
-	// printf("Enter a Number from 1- 5");
-	// scanf("%d",&numc);
-	// switch(numc)
-	// {
-	// 	case 1: strcpy(file_name,"sol1");
-	// 		break;
-	// 	case 2: strcpy(file_name,"sol2");
-	// 		break;
-	// 	case 3: strcpy(file_name,"sol3");
-	// 		break;
-	// 	case 4: strcpy(file_name,"sol4");
-	// 		break;
-	// 	case 5: strcpy(file_name,"sol5");
-	// 		break;
-	// 	default: printf("ERROR, Number input is more than 5");
-	// 		 exit(0);
-	// }
-	//getsudoku();
 	randomgen(numd);
-	//zeo(numd);
 	printsudo();
 	printf("Enter your choice, where it's 0\n");
 	for(int i = 0;i < 9; i++)
@@ -209,12 +189,11 @@ void play()
 		{
 			if(sudoku[i][j] == 0)
 			{
-				printf("Enter for [%d][%d]:\n",i+1,j+1);
+				//printf("Enter for [%d][%d]:\n",i+1,j+1);
 				scanf("%d",&sudoku[i][j]);
 			}
 		}
 	}
-	strcpy(file_name,file_name2);
 	inst();
 
 }
@@ -447,7 +426,7 @@ int main() {
 	
 		printf("Enter file_name:\n");
 		scanf("%s",file_name);
-		printf("Select the following:\n1:New\n2.Play\n 3:exit\n");
+		printf("Select the following:\n1:New\n2.Play\n3:exit\n");
 		scanf("%d",&inp);
 	
 		if(inp==1)
@@ -460,7 +439,5 @@ int main() {
 		}
 		getsudoku();
 		checkSudo();
-
-	
 	
 }

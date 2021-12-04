@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <string.h>
-#include <bsd/stdlib.h>
+//#include <bsd/stdlib.h>
 #define num_threads 27
 /* 
 	Initialize the array which worker threads can update to 1 if the 
@@ -189,7 +189,7 @@ void play()
 		{
 			if(sudoku[i][j] == 0)
 			{
-				//printf("Enter for [%d][%d]:\n",i+1,j+1);
+				printf("Enter for [%d][%d]:\n",i+1,j+1);
 				scanf("%d",&sudoku[i][j]);
 			}
 		}
@@ -197,6 +197,7 @@ void play()
 	inst();
 
 }
+
 void inst()
 {
 	FILE *fptr;
@@ -241,11 +242,12 @@ void ins() {
 	scanf("%d",&inp);
 	if(inp==1)
 	{
+		printf("Enter the sudoku solution:\n");
 		for(int i=0;i<9;i++)
 		{
 			for(int j=0;j<9;j++)
 			{
-				printf("Row:%d,Col:%d::\n",i+1,j+1);
+				//printf("Row:%d,Col:%d::\n",i+1,j+1);
 				scanf("%d", &num);
 				if(num<1||num>10)
 				{
@@ -426,7 +428,8 @@ int main() {
 	
 		printf("Enter file_name:\n");
 		scanf("%s",file_name);
-		printf("Select the following:\n1:New\n2.Play\n3:exit\n");
+
+		printf("Select the following:\n1:New\n2.Play\n3:Existing file\n4:Exit!\n");
 		scanf("%d",&inp);
 	
 		if(inp==1)
@@ -436,6 +439,10 @@ int main() {
 		if(inp==2)
 		{
 			play();
+		}
+		else if (inp >= 4)
+		{
+			exit(0);
 		}
 		getsudoku();
 		checkSudo();

@@ -43,9 +43,18 @@ int SRN = 3;
 
 void randomgen(int k){
 
+	/* Fill all the diagonal 3x3 matrices with random numbers 
+	   as they are idependent initially when others are empty */
 	fillDiagonal(9,SRN);
+	
+	/* Fill recursively rest of the non-diagonal matrices,
+	for every cell, we try all numbers until we find a safe 
+	number to be palced.*/
 	fillRemaining(0, SRN);
-	removeKDigits(k);
+	
+	/* Replace the digits in sudoku with 0s and 
+	after that user can fill in the missing values*/
+	removeKDigits(k); // Used in play()
 
 	
 }
